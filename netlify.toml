@@ -1,0 +1,16 @@
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+# Keep the frontend paths short/stable. script.js calls these directly.
+[[redirects]]
+  from = "/api/ollama-chat"
+  to = "/.netlify/functions/ollama-chat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/ollama-status"
+  to = "/.netlify/functions/ollama-status"
+  status = 200
+  force = true

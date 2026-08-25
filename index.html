@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Signal Desk — Local Model Relay</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="sheet">
+  <span class="crop tl"></span><span class="crop tr"></span>
+  <span class="crop bl"></span><span class="crop br"></span>
+
+  <!-- Title block -->
+  <div class="titleblock">
+    <div>
+      <div class="titleblock-name disp" id="brandTitle">SIGNAL DESK</div>
+      <div class="titleblock-sub mono" id="brandSub">LOCAL MODEL RELAY</div>
+    </div>
+    <div class="titleblock-actions">
+      <button class="text-btn" id="clearBtn">CLEAR SHEET</button>
+      <button class="icon-btn" id="settingsBtn" title="Settings" aria-label="Settings">&#9881;</button>
+    </div>
+  </div>
+
+  <!-- Pipeline diagram: You -> Ollama -> n8n, live status -->
+  <div class="pipeline" id="pipeline">
+    <div class="node">
+      <div class="node-dot off" id="dotYou"></div>
+      <div class="node-label mono" id="labelYou">YOU</div>
+      <div class="node-state mono" id="stateYou">idle</div>
+    </div>
+    <div class="route"></div>
+    <div class="node">
+      <div class="node-dot off" id="dotOllama"></div>
+      <div class="node-label mono" id="labelOllama">OLLAMA</div>
+      <div class="node-state mono" id="stateOllama">checking&hellip;</div>
+    </div>
+    <div class="route"></div>
+    <div class="node">
+      <div class="node-dot off" id="dotN8n"></div>
+      <div class="node-label mono" id="labelN8n">N8N</div>
+      <div class="node-state mono" id="stateN8n">no webhook</div>
+    </div>
+  </div>
+
+  <!-- Settings -->
+  <div class="settings" id="settingsPanel">
+    <div class="settings-row">
+      <label for="ollamaModel">Ollama model</label>
+      <input id="ollamaModel" type="text" spellcheck="false" />
+    </div>
+    <div class="settings-row">
+      <label for="n8nWebhook">n8n webhook URL</label>
+      <input id="n8nWebhook" type="text" placeholder="https://your-instance.app.n8n.cloud/webhook/xxxx" spellcheck="false" />
+    </div>
+    <div class="settings-hint" id="settingsHint"></div>
+  </div>
+
+  <!-- Log -->
+  <div class="log" id="log">
+    <div class="empty-state" id="emptyState">
+      <div class="glyph"><span>&gt;</span></div>
+      <h2 class="mono" id="emptyHeadline">AWAITING FIRST TRANSMISSION</h2>
+      <p id="emptyBody"></p>
+    </div>
+  </div>
+
+  <!-- Input -->
+  <div class="inputbar">
+    <div class="input-row">
+      <span class="caret">&gt;</span>
+      <textarea id="inputBox" rows="1" placeholder="compose message&hellip;"></textarea>
+      <button class="send-btn" id="sendBtn" disabled aria-label="Send">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M4 12L20 4L14 20L11 13L4 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" fill="none"/></svg>
+      </button>
+    </div>
+    <div class="input-footer">
+      <span id="sendHint">ENTER TO SEND &middot; SHIFT+ENTER FOR NEW LINE</span>
+      <span id="statusLabel">idle</span>
+    </div>
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
